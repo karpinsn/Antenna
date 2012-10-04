@@ -10,12 +10,17 @@
 #ifndef _ANTENNA_RECEIVER_H_
 #define _ANTENNA_RECEIVER_H_
 
+#include <libwebsockets.h>
+
 namespace antenna
 {
-class Receiver
-{
-
-};
+	class Receiver
+	{
+		public:
+			Receiver(void);
+			init(void);
+		
+	};
 }
 
 #endif //_ANTENNA_RECEIVER_H_
