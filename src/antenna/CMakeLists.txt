@@ -7,6 +7,19 @@
 
 set(NAME antenna)
 
+### ---------------------------------------------------------------------------------------
+# Configure Dependencies
+### ---------------------------------------------------------------------------------------
+find_package(libwebsockets REQUIRED)
+include_directories(${LIBWEBSOCKETS_INCLUDE_DIRS})
+set(ANTENNA_INCLUDE_DIRS ${ANTENNA_INCLUDE_DIRS} ${LIBWEBSOCKETS_INCLUDE_DIRS})
+set(ANTENNA_LIBRARIES ${ANTENNA_LIBRARIES} ${LIBWEBSOCKETS_LIBRARIES})
+
+find_package(ZLIB REQUIRED)
+include_directories(${ZLIB_INCLUDE_DIRS})
+set(ANTENNA_INCLUDE_DIRS ${ANTENNA_INCLUDE_DIRS} ${ZLIB_INCLUDE_DIRS})
+set(ANTENNA_LIBRARIES ${ANTENNA_LIBRARIES} ${ZLIB_LIBRARY})
+
 #	---------------------------------------------------------------------------------------
 #	List all of the sources to be compiled
 #	---------------------------------------------------------------------------------------
