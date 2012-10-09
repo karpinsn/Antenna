@@ -27,10 +27,10 @@ set(ANTENNA_LIBRARIES ${ANTENNA_LIBRARIES} ${ZLIB_LIBRARY})
 set(SOURCES
 	
 	Transmitter.cpp
-	Receiver.cpp
+	BaseStation.cpp
 
 	Transmitter.h
-	Receiver.h
+	BaseStation.h
 )
 
 source_group("antenna" FILES ${SOURCES})

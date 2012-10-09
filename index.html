@@ -1,0 +1,31 @@
+<html>
+<body>
+<script>
+	var ws = new WebSocket("ws://localhost:7681/", "Antenna-BaseStation");
+	
+	ws.onopen = function() {
+		return console.log('Connected');
+	};
+	
+	ws.onclose = function() {
+		console.log("Disconnected: retrying in " + 4 + "s");
+		return setTimeout(connect, 4 * 1000);
+	}
+	
+    ws.onmessage = function (msg) 
+	{
+        var target = document.getElementById("target");
+        
+		url=window.webkitURL.createObjectURL(msg.data);
+ 
+        target.onload = function() {
+            window.webkitURL.revokeObjectURL(url);
+        };
+        target.src = url;
+    }
+</script>
+<div>
+    <img id="target" style="display: inline;"/>
+</div>
+</body>
+</html>

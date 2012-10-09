@@ -3,12 +3,11 @@
   * @author Nikolaus Karpinsky
   * @date   07/08/2011
   *
-  * Class used to receive TCP packets from a network. Allows a program to
-  * register an observer which will then be called with complete data packets
+  * Class used to broacast information to many websocket connections.
   */
 
-#ifndef _ANTENNA_RECEIVER_H_
-#define _ANTENNA_RECEIVER_H_
+#ifndef _ANTENNA_BASE_STATION_H_
+#define _ANTENNA_BASE_STATION_H_
 
 #include <libwebsockets.h>
 
@@ -20,22 +19,22 @@ using namespace std;
 
 namespace antenna
 {
-class Receiver
+class BaseStation
 {
 private:
 	int m_port;
 	
-	struct libwebsocket_protocols m_protocols[3];
 	struct per_session_data_receiver { int number; };
 	shared_ptr<libwebsocket_context> m_context;
 
 
 public:
-	Receiver(void);
+	BaseStation(void);
 	void start(int port, bool useSSL = false);
 	void stop(void);
+	void broadcastData(unsigned char* data, unsigned int length);
+	int yieldTime(void);
 
-private:
 	static int _httpCallback(struct libwebsocket_context *context,
 	struct libwebsocket *wsi,
 	enum libwebsocket_callback_reasons reason, 
@@ -46,9 +45,10 @@ private:
 	enum libwebsocket_callback_reasons reason, 
 	void *user, void *in, size_t len);
 
+private:
 	string _getSSLCertificatePath(void);
 	string _getSSLKeyPath(void);
 };
 }
 
-#endif //_ANTENNA_RECEIVER_H_
+#endif //_ANTENNA_BASE_STATION_H_
