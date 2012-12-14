@@ -9,7 +9,7 @@ static struct libwebsocket_protocols antennaBaseStationProtocols[] = {
 		0			/* per_session_data_size */
 	},
 	{
-		"Antenna-BaseStation",
+		"Antenna",
 		antenna::BaseStation::_receiverCallback,
 		//4,
 		512 * 512 * 3 * sizeof(unsigned char),
@@ -41,7 +41,7 @@ void antenna::BaseStation::start(int port, bool useSSL)
 	m_context = shared_ptr<libwebsocket_context>(libwebsocket_create_context(
 												m_port, NULL, antennaBaseStationProtocols,
 												NULL,
-												sslCertificatePath, sslKeyPath, -1, -1, 0),
+												sslCertificatePath, sslKeyPath, -1, -1, 0, NULL),
 												[] (libwebsocket_context* ptr) {libwebsocket_context_destroy(ptr);});
 
 	if (nullptr == m_context) 
@@ -63,7 +63,10 @@ void antenna::BaseStation::stop(void)
 
 int antenna::BaseStation::yieldTime(void)
 {
-  return libwebsocket_service(m_context.get(), 1000);
+  if(nullptr != m_context)
+    return libwebsocket_service(m_context.get(), 1000);
+  else
+	return -1;
 }
 
 void antenna::BaseStation::broadcastData(unsigned char* data, unsigned int length)

@@ -26,10 +26,10 @@ set(ANTENNA_LIBRARIES ${ANTENNA_LIBRARIES} ${ZLIB_LIBRARY} PARENT_SCOPE)
 
 set(SOURCES
 	
-	Transmitter.cpp
+    ReceiverAntenna.cpp
 	BaseStation.cpp
 
-	Transmitter.h
+	ReceiverAntenna.h
 	BaseStation.h
 )
 
